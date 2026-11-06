@@ -16,6 +16,7 @@ public class CameraLean : MonoBehaviour
         _smoothLeanStrength = _leanWalkStrength;
     }
 
+    /// <summary>Allows the camera to lean into the acceleration direction vector</summary>
     public void UpdateLean(float deltaTime, bool isSliding, Vector3 acceleration, Vector3 up)
     {
         // Project the acceleration onto the plane defined by the up vector to get the planar acceleration

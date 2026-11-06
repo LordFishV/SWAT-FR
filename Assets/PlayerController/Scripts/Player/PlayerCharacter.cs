@@ -93,6 +93,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
         _motor.CharacterController = this;
     }
 
+    /// <summary>Update the players incoming inputs (Mouse and Keyboard only for now)</summary>
     public void UpdateInput(PlayerInput input)
     {
         _requestedRotation = input.LookRotation;
@@ -128,6 +129,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
             _requestedCrouchInAir = false;
     }
 
+    /// <summary>Updates player scale and responces depending on possable desired state</summary>
     public void UpdateBody(float deltaTime)
     {
         // Get the current height of the character's capsule collider
@@ -178,6 +180,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
         );
     }
 
+    /// <summary>Updates velocity for all movement states, idle, crouch, run, slide, jump</summary>
     public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
     {
         _state.Acceleration = Vector3.zero;
@@ -436,6 +439,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
         }
     }
 
+    /// <summary>Updates player rotation based on the projecton plane</summary>
     public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
     {
         // Update the character's rotation based on the requested rotation depending on the character's up direction to the ground
@@ -501,8 +505,11 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 
     public void ProcessHitStabilityReport(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, Vector3 atCharacterPosition, Quaternion atCharacterRotation, ref HitStabilityReport hitStabilityReport) { }
 
+    /// <summary>Camera anchor game objects transform</summary>
     public Transform GetCameraAnchor() => _cameraAnchor;
+    /// <summary>Current state</summary>
     public CharacterState GetState() => _state;
+    /// <summary>Last state</summary> 
     public CharacterState GetLastState() => _lastState;
 
     public void SetPosition(Vector3 position, bool killVelocity = true)
@@ -512,15 +519,17 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
             _motor.BaseVelocity = Vector3.zero;
     }
 
+    /// <summary>Get height depending on current stance</summary>
     private float GetHeight(Stance stance) => stance switch
     {
-        Stance.Stand => _standHeight,
-        Stance.Run => _runHeight,
-        Stance.Crouch => _crouchHeight,
-        Stance.Prone => _proneHeight,
+        Stance.Stand    => _standHeight,
+        Stance.Run      => _runHeight,
+        Stance.Crouch   => _crouchHeight,
+        Stance.Prone    => _proneHeight,
         _ => _standHeight
     };
 
+    /// <summary>Attempt to resize the motor capsule.</summary>
     private bool TryResizeCapsule(float height)
     {
         float oldHeight = _motor.Capsule.height;

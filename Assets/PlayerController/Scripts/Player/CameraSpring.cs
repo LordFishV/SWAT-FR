@@ -20,6 +20,7 @@ public class CameraSpring : MonoBehaviour
         _springVelocity = Vector3.zero;
     }
 
+    /// <summary>Allows the camera to lag behind the acceleration direction vector while still being responcive to the players intentions</summary>
     public void UpdateCameraSpring(float deltaTime, Vector3 up)
     {
         transform.localPosition = Vector3.zero;

@@ -145,6 +145,78 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""74c28337-1a15-4f81-828d-89de718b1e51"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd97c944-b961-408c-b812-e667e25281ae"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""a45f7d98-bf54-405b-9698-5b0cc4e6ae45"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeFireMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""8079751a-08dd-4a0e-b7d0-2851698b5a10"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipPrimary"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f79aabb-fe22-4733-9bad-2f375eae1808"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipSecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""2675f241-1df8-4cdc-9f2e-e99992e13cfd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CycleGadget"",
+                    ""type"": ""Button"",
+                    ""id"": ""72bf8c56-59dd-4ce7-8fd0-1d02caafb510"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuickSwap"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5620db2-4058-4921-a899-a24baeb38207"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +329,94 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56315691-ba8b-4e6f-9604-6a1f38b777a2"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""369f2446-2694-41be-b8b9-81560579e3c3"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7644cdd9-1874-4093-8309-4ae4d2b33af3"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72622b3f-d31c-4ccf-90c6-ea887bb9c482"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeFireMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca2caa46-f0fb-4491-b021-77988c1dc757"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipPrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""762c6106-af86-4b36-b17e-e0b78f8e06b5"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipSecondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7a4a31f-509c-4736-867e-5bd4d13de8f9"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CycleGadget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""434c2a6d-4583-472b-969a-98556332490f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSwap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -271,6 +431,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
         m_Gameplay_Prone = m_Gameplay.FindAction("Prone", throwIfNotFound: true);
+        m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
+        m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
+        m_Gameplay_Reload = m_Gameplay.FindAction("Reload", throwIfNotFound: true);
+        m_Gameplay_ChangeFireMode = m_Gameplay.FindAction("ChangeFireMode", throwIfNotFound: true);
+        m_Gameplay_EquipPrimary = m_Gameplay.FindAction("EquipPrimary", throwIfNotFound: true);
+        m_Gameplay_EquipSecondary = m_Gameplay.FindAction("EquipSecondary", throwIfNotFound: true);
+        m_Gameplay_CycleGadget = m_Gameplay.FindAction("CycleGadget", throwIfNotFound: true);
+        m_Gameplay_QuickSwap = m_Gameplay.FindAction("QuickSwap", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -357,6 +525,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_Crouch;
     private readonly InputAction m_Gameplay_Prone;
+    private readonly InputAction m_Gameplay_Fire;
+    private readonly InputAction m_Gameplay_Aim;
+    private readonly InputAction m_Gameplay_Reload;
+    private readonly InputAction m_Gameplay_ChangeFireMode;
+    private readonly InputAction m_Gameplay_EquipPrimary;
+    private readonly InputAction m_Gameplay_EquipSecondary;
+    private readonly InputAction m_Gameplay_CycleGadget;
+    private readonly InputAction m_Gameplay_QuickSwap;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -392,6 +568,38 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/Prone".
         /// </summary>
         public InputAction @Prone => m_Wrapper.m_Gameplay_Prone;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Fire".
+        /// </summary>
+        public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Aim".
+        /// </summary>
+        public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Reload".
+        /// </summary>
+        public InputAction @Reload => m_Wrapper.m_Gameplay_Reload;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/ChangeFireMode".
+        /// </summary>
+        public InputAction @ChangeFireMode => m_Wrapper.m_Gameplay_ChangeFireMode;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/EquipPrimary".
+        /// </summary>
+        public InputAction @EquipPrimary => m_Wrapper.m_Gameplay_EquipPrimary;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/EquipSecondary".
+        /// </summary>
+        public InputAction @EquipSecondary => m_Wrapper.m_Gameplay_EquipSecondary;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/CycleGadget".
+        /// </summary>
+        public InputAction @CycleGadget => m_Wrapper.m_Gameplay_CycleGadget;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/QuickSwap".
+        /// </summary>
+        public InputAction @QuickSwap => m_Wrapper.m_Gameplay_QuickSwap;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -436,6 +644,30 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Prone.started += instance.OnProne;
             @Prone.performed += instance.OnProne;
             @Prone.canceled += instance.OnProne;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
+            @ChangeFireMode.started += instance.OnChangeFireMode;
+            @ChangeFireMode.performed += instance.OnChangeFireMode;
+            @ChangeFireMode.canceled += instance.OnChangeFireMode;
+            @EquipPrimary.started += instance.OnEquipPrimary;
+            @EquipPrimary.performed += instance.OnEquipPrimary;
+            @EquipPrimary.canceled += instance.OnEquipPrimary;
+            @EquipSecondary.started += instance.OnEquipSecondary;
+            @EquipSecondary.performed += instance.OnEquipSecondary;
+            @EquipSecondary.canceled += instance.OnEquipSecondary;
+            @CycleGadget.started += instance.OnCycleGadget;
+            @CycleGadget.performed += instance.OnCycleGadget;
+            @CycleGadget.canceled += instance.OnCycleGadget;
+            @QuickSwap.started += instance.OnQuickSwap;
+            @QuickSwap.performed += instance.OnQuickSwap;
+            @QuickSwap.canceled += instance.OnQuickSwap;
         }
 
         /// <summary>
@@ -465,6 +697,30 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Prone.started -= instance.OnProne;
             @Prone.performed -= instance.OnProne;
             @Prone.canceled -= instance.OnProne;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
+            @ChangeFireMode.started -= instance.OnChangeFireMode;
+            @ChangeFireMode.performed -= instance.OnChangeFireMode;
+            @ChangeFireMode.canceled -= instance.OnChangeFireMode;
+            @EquipPrimary.started -= instance.OnEquipPrimary;
+            @EquipPrimary.performed -= instance.OnEquipPrimary;
+            @EquipPrimary.canceled -= instance.OnEquipPrimary;
+            @EquipSecondary.started -= instance.OnEquipSecondary;
+            @EquipSecondary.performed -= instance.OnEquipSecondary;
+            @EquipSecondary.canceled -= instance.OnEquipSecondary;
+            @CycleGadget.started -= instance.OnCycleGadget;
+            @CycleGadget.performed -= instance.OnCycleGadget;
+            @CycleGadget.canceled -= instance.OnCycleGadget;
+            @QuickSwap.started -= instance.OnQuickSwap;
+            @QuickSwap.performed -= instance.OnQuickSwap;
+            @QuickSwap.canceled -= instance.OnQuickSwap;
         }
 
         /// <summary>
@@ -547,5 +803,61 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnProne(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFire(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Aim" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAim(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Reload" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnReload(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeFireMode" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeFireMode(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EquipPrimary" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipPrimary(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EquipSecondary" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipSecondary(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CycleGadget" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCycleGadget(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "QuickSwap" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuickSwap(InputAction.CallbackContext context);
     }
 }
