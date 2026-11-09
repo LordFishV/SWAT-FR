@@ -1,0 +1,160 @@
+
+.hud-root
+{
+    flex-grow: 1;
+}
+
+
+/* GENERAL */
+
+.hud-heading
+{
+    color: rgb(210, 212, 209);
+    font-size: 11px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+}
+
+.reload-container
+{
+    position: absolute;
+    right: 45px;
+    bottom: 45px;
+
+    align-items: flex-end;
+
+    opacity: 0;
+
+    transition-property: opacity;
+    transition-duration: 180ms;
+    transition-timing-function: ease-out;
+}
+
+.reload-container.visible
+{
+    opacity: 1;
+}
+
+
+/* MAGAZINE */
+
+.magazine-graphic
+{
+    flex-direction: row;
+    align-items: center;
+
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+.ammo-segment
+{
+    width: 5px;
+    height: 23px;
+
+    margin-left: 2px;
+    margin-right: 2px;
+
+    background-color: rgb(205, 207, 201);
+}
+
+.ammo-segment.empty
+{
+    background-color: rgba(205, 207, 201, 0.2);
+}
+
+.magazine-ammo
+{
+    color: rgb(235, 236, 232);
+    font-size: 25px;
+    -unity-font-style: bold;
+}
+
+.ammo-type
+{
+    color: rgb(160, 163, 159);
+    font-size: 10px;
+}
+
+
+/* GADGET SELECTION */
+
+.gadget-container
+{
+    position: absolute;
+
+    bottom: 40px;
+
+    width: 100%;
+
+    align-items: center;
+
+    opacity: 0;
+
+    transition-property: opacity;
+    transition-duration: 180ms;
+    transition-timing-function: ease-out;
+}
+
+.gadget-container.visible
+{
+    opacity: 1;
+}
+
+.gadget-list
+{
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 8px;
+}
+
+.gadget-slot
+{
+    width: 78px;
+    height: 90px;
+
+    margin-left: 3px;
+    margin-right: 3px;
+
+    padding: 7px;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(20, 22, 22, 0.55);
+
+    border-width: 1px;
+    border-color: rgba(200, 205, 200, 0.15);
+}
+
+.gadget-slot.selected
+{
+    background-color: rgba(105, 110, 105, 0.55);
+
+    border-color: rgb(210, 215, 207);
+}
+
+.gadget-icon
+{
+    width: 36px;
+    height: 36px;
+
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.gadget-name
+{
+    color: rgb(225, 226, 221);
+    font-size: 10px;
+    -unity-font-style: bold;
+
+    margin-top: 5px;
+}
+
+.gadget-count
+{
+    color: rgb(170, 173, 167);
+    font-size: 10px;
+}

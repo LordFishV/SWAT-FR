@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+
+    <ui:Style src="HUD.uss" />
+
+    <ui:VisualElement name="HUDRoot" class="hud-root">
+
+        <!-- RELOAD DISPLAY -->
+
+        <ui:VisualElement
+            name="ReloadContainer"
+            class="reload-container">
+
+            <ui:Label
+                name="ReloadTitle"
+                text="CHECKING MAGAZINE"
+                class="hud-heading" />
+
+            <ui:VisualElement
+                name="MagazineGraphic"
+                class="magazine-graphic" />
+
+            <ui:Label
+                name="MagazineAmmo"
+                text="0 / 30"
+                class="magazine-ammo" />
+
+            <ui:Label
+                name="AmmoType"
+                text="5.56 × 45 mm"
+                class="ammo-type" />
+
+        </ui:VisualElement>
+
+
+        <!-- GADGET SELECTION -->
+
+        <ui:VisualElement
+            name="GadgetContainer"
+            class="gadget-container">
+
+            <ui:VisualElement class="gadget-heading-container">
+
+                <ui:Label
+                    text="EQUIPMENT"
+                    class="hud-heading" />
+
+            </ui:VisualElement>
+
+            <ui:VisualElement
+                name="GadgetList"
+                class="gadget-list" />
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

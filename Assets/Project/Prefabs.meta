@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 6c9c8097c649b994f9a91511baa8bf0b
+=======
+guid: 4a5aa3d6044a6474b977976d4554012f
+>>>>>>> PlayerMechanics
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
