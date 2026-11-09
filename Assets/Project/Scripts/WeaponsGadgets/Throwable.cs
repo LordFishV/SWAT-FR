@@ -9,7 +9,7 @@ public class Throwable : Equippable
     [SerializeField] private float _throwSpeed = 12f;
     [SerializeField] private float _cooldown = 0.8f;
     [SerializeField] private AudioClip _throwSound;
-    [SerializeField] private float _spawnDistance = 5f;
+    [SerializeField] private float _spawnDistance = 1f;
 
     public int Count => _count;
 
@@ -26,6 +26,7 @@ public class Throwable : Equippable
         // Spawn in front of the camera, clear of the player's capsule
         GameObject grenade = Instantiate(_projectilePrefab, aim.position + aim.forward * _spawnDistance, aim.rotation);
         grenade.GetComponent<Rigidbody>().linearVelocity = aim.forward * _throwSpeed;
+        grenade.SetActive(true);
 
         if (_throwSound != null)
             AudioSource.PlayClipAtPoint(_throwSound, aim.position);

@@ -134,6 +134,14 @@ PrefabInstance:
       propertyPath: _throwSpeed
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: _spawnDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 8837254729357153850, guid: 04c7dc85986bb9a43baf511015ca426b, type: 3}
     - target: {fileID: 6836849368798769780, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
       propertyPath: m_Name
       value: FlashBang
