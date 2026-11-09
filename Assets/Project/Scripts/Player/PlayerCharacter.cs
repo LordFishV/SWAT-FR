@@ -1,5 +1,6 @@
-using UnityEngine;
 using KinematicCharacterController;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerCharacter : MonoBehaviour, ICharacterController
 {
@@ -63,6 +64,10 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
     [SerializeField] private float _anchorCrouchHeight = 0.8f;
     [Range(0f, 1f)]
     [SerializeField] private float _anchorProneHeight = 0.8f;
+    [Space]
+    [Header("Interaction")]
+    [SerializeField] private float _interactionDistance = 3f;
+
 
     // States
     private CharacterState _state;
@@ -76,12 +81,15 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
     private bool _requestedJumpSustain;
     private bool _requestedCrouchInAir;
     private Stance _requestedStance = Stance.Stand;
+    private bool _requestedInteraction;
 
     // Private fields not requested by the player input
     private Collider[] _overlapResults;
     private float _timeSinceUngrounded;
     private float _timeSinceJumpRequest;
     private bool _ungroundedDueToJump;
+
+    public CharacterState State => _state;
 
     public void Initilise()
     {
@@ -127,6 +135,8 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
             _requestedCrouchInAir = !_state.Grounded;
         else if (_requestedStance is not Stance.Crouch)
             _requestedCrouchInAir = false;
+
+        _requestedInteraction = input.Interact;
     }
 
     /// <summary>Updates player scale and responces depending on possable desired state</summary>
@@ -451,6 +461,28 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 
         if (forward != Vector3.zero)
             currentRotation = Quaternion.LookRotation(forward, _motor.CharacterUp);
+    }
+
+    public void UpdateInteract(PlayerCamera playerCamera)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, _interactionDistance) && hit.collider.TryGetComponent(out IInteractable interactObj))
+        {
+            IInteractable target = hit.collider.GetComponentInParent<IInteractable>();
+            if (target != null)
+            {
+                ClearInteraction(target);
+                target = interactObj;
+                target.OnHoverEnter(gameObject);
+            }
+
+            if (_requestedInteraction) target.Interact(gameObject);
+        }
+    }
+    private void ClearInteraction(IInteractable target)
+    {
+        if (target != null) target.OnHoverExit(gameObject);
+        target = null;
     }
 
     public void BeforeCharacterUpdate(float deltaTime)

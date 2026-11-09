@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
             Prone = input.Prone.WasPressedThisFrame()
                             ? ProneInput.Toggle
                             : ProneInput.None,
+            Interact = input.Interact.WasPressedThisFrame(),
 
             FirePressed = input.Fire.WasPressedThisFrame(),
             FireHeld = input.Fire.IsPressed(),
@@ -92,6 +93,8 @@ public class Player : MonoBehaviour
             weapons.CycleGadget();
 
         weapons.UpdateWeapons(playerInput, playerCamera.transform);
+
+        playerCharacter.UpdateInteract(playerCamera);
 
         // Zoom in while aiming a gun
         bool aiming = playerInput.Aim && weapons.Current is Gun;

@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerInputActions",
     "maps": [
         {
@@ -108,6 +109,15 @@
                     "name": "CycleGadget",
                     "type": "Button",
                     "id": "22d26a18-59dd-4cdb-a709-849757871e6c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "3a0099ad-d952-4f2c-8ab4-98a46b9936b7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -288,6 +298,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "CycleGadget",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d1baf31-ee0c-486b-b7a0-d4fe1aef4e06",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // A gadget the player throws: frag grenade, flashbang.
 // Put it on a prefab root with a model. Assign the grenade projectile prefab.
@@ -10,6 +9,7 @@ public class Throwable : Equippable
     [SerializeField] private float _throwSpeed = 12f;
     [SerializeField] private float _cooldown = 0.8f;
     [SerializeField] private AudioClip _throwSound;
+    [SerializeField] private float _spawnDistance = 5f;
 
     public int Count => _count;
 
@@ -23,8 +23,8 @@ public class Throwable : Equippable
         _nextThrowTime = Time.time + _cooldown;
         _count--;
 
-        // Spawn a little in front of the camera so it doesn't start inside the player
-        GameObject grenade = Instantiate(_projectilePrefab, aim.position + aim.forward * 0.5f, aim.rotation);
+        // Spawn in front of the camera, clear of the player's capsule
+        GameObject grenade = Instantiate(_projectilePrefab, aim.position + aim.forward * _spawnDistance, aim.rotation);
         grenade.GetComponent<Rigidbody>().linearVelocity = aim.forward * _throwSpeed;
 
         if (_throwSound != null)

@@ -67,6 +67,11 @@ public class Gun : Equippable
                 IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
                 if (target != null)
                     target.ApplyDamage(_data.damage, gameObject);
+                Debug.DrawRay(aim.position, direction * _data.range, Color.red, 2f);
+            }
+            else
+            {
+                Debug.DrawRay(aim.position, direction * _data.range, Color.yellow, 2f);
             }
         }
 

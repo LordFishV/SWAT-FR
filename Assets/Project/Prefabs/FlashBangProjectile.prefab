@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2852817596628167209, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3887652194957038499, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
       propertyPath: _blindSeconds
       value: 6
@@ -67,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 6836849368798769780, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
       propertyPath: m_Name
       value: FlashBangProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836849368798769780, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 104347778112735689, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
@@ -280,6 +288,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c03fa47ed161d1549bc7f819b1a126f9, type: 3}
       propertyPath: m_Name
       value: flash
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c03fa47ed161d1549bc7f819b1a126f9, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

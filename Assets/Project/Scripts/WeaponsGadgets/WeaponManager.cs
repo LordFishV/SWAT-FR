@@ -35,6 +35,17 @@ public class WeaponManager : MonoBehaviour
         if (Current == null) return;
 
         Current.UpdateItem(input, aim);
+
+        if (input.Aim)
+        {
+            _holder.transform.localPosition = new Vector3(0, -0.4f, 1f);
+            _holder.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            _holder.transform.localPosition = new Vector3(0.6f, -0.4f, 1f);
+            _holder.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     public void SelectPrimary() => Equip(_primary);

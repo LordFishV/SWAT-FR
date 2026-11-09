@@ -15,8 +15,8 @@ MonoBehaviour:
   displayName: Glock17
   damage: 25
   shotsPerSecond: 8
-  automatic: 0
-  range: 100
+  automatic: 1
+  range: 1000
   pellets: 1
   spread: 1
   recoil: 1
