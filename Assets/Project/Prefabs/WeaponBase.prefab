@@ -109,9 +109,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f41f666d4e1ea44a12302fe2e18a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gadgetName: 
+  icon: {fileID: 0}
+  remainingCharges: 0
   _data: {fileID: 11400000, guid: c17654ae279d7f24ca4c783b4677ce44, type: 2}
   _muzzle: {fileID: 4015647475260532356}
   _audio: {fileID: 990719426064134167}
+  _hudUI: {fileID: 92549376720881590, guid: a32d03d071224824c9311e8e60fcbbc6, type: 3}
 --- !u!82 &990719426064134167
 AudioSource:
   m_ObjectHideFlags: 0

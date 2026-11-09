@@ -25,7 +25,8 @@ MonoBehaviour:
     m_Bits: 63
   magazineSize: 30
   reserveAmmo: 90
-  reloadTime: 2
+  reloadTime: 1
+  ammoType: "5.56 \xD7 45 mm"
   muzzleFlashPrefab: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
   fireSound: {fileID: 8300000, guid: 8320d5e13f8b26e4b93950dc4034e165, type: 3}
   reloadSound: {fileID: 8300000, guid: 7c2c98c919d58e346bffe00d75adb7a9, type: 3}

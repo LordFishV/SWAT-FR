@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
     [Header("Weapons")]
     [SerializeField] private WeaponManager weapons;
+    [SerializeField] private HUDController hud;
     [SerializeField] private Camera viewCamera;     // the Main Camera, for aim zoom
     [SerializeField] private float hipFov = 80f;
     [SerializeField] private float aimFov = 55f;
@@ -31,6 +32,12 @@ public class Player : MonoBehaviour
         cameraLean.Initilise();
 
         weapons.Initialise();
+
+        if (hud != null)
+        {
+            hud.Initialise();
+            hud.BuildGadgetList(weapons.Gadgets);
+        }
     }
 
     private void OnDestroy()
@@ -53,16 +60,9 @@ public class Player : MonoBehaviour
             Look = input.Look.ReadValue<Vector2>(),
             Jump = input.Jump.WasPressedThisFrame(),
             JumpSustain = input.Jump.IsPressed(),
-            Run = input.Run.WasPressedThisFrame()
-                            ? RunInput.Toggle
-                            : RunInput.None,
-            Crouch = input.Crouch.WasPressedThisFrame()
-                            ? CrouchInput.Toggle
-                            : CrouchInput.None,
-            Prone = input.Prone.WasPressedThisFrame()
-                            ? ProneInput.Toggle
-                            : ProneInput.None,
-            Interact = input.Interact.WasPressedThisFrame(),
+            Run = input.Run.WasPressedThisFrame() ? RunInput.Toggle : RunInput.None,
+            Crouch = input.Crouch.WasPressedThisFrame() ? CrouchInput.Toggle : CrouchInput.None,
+            Prone = input.Prone.WasPressedThisFrame() ? ProneInput.Toggle : ProneInput.None,
 
             FirePressed = input.Fire.WasPressedThisFrame(),
             FireHeld = input.Fire.IsPressed(),
@@ -73,13 +73,7 @@ public class Player : MonoBehaviour
         playerCamera.UpdateRotation(playerInput);
         playerCamera.UpdatePosition(cameraAnchor);
         cameraSpring.UpdateCameraSpring(deltaTime, cameraAnchor.up);
-        cameraLean.UpdateLean
-        (
-            deltaTime,
-            state.Stance is Stance.Slide,
-            state.Acceleration,
-            cameraAnchor.up
-        );
+        cameraLean.UpdateLean(deltaTime, state.Stance is Stance.Slide, state.Acceleration, cameraAnchor.up);
 
         playerCharacter.UpdateInput(playerInput);
         playerCharacter.UpdateBody(deltaTime);
@@ -90,11 +84,14 @@ public class Player : MonoBehaviour
         if (input.EquipSecondary.WasPressedThisFrame())
             weapons.SelectSecondary();
         if (input.CycleGadget.WasPressedThisFrame())
+        {
             weapons.CycleGadget();
+            if (hud != null)
+                hud.ShowGadgetSelection(weapons.CurrentGadgetIndex);
+        }
 
         weapons.UpdateWeapons(playerInput, playerCamera.transform);
-
-        playerCharacter.UpdateInteract(playerCamera);
+        UpdateHud(playerInput);
 
         // Zoom in while aiming a gun
         bool aiming = playerInput.Aim && weapons.Current is Gun;
@@ -108,6 +105,47 @@ public class Player : MonoBehaviour
                 Teleport(hit.point);
         }
 #endif
+    }
+
+    private bool _wasReloading;
+
+    // Shows the reload panel when a reload starts and keeps the gadget counts up to date
+    private void UpdateHud(PlayerInput input)
+    {
+        if (hud == null)
+            return;
+
+        if (weapons.Current is Gun gun)
+        {
+            int capacity = gun.Data.magazineSize;
+
+            if (gun.IsReloading && !_wasReloading)
+            {
+                hud.ShowReloadUI(gun.AmmoInMag, capacity, gun.Data.ammoType);
+            }
+            else if (!gun.IsReloading && _wasReloading)
+            {
+                // Reload finished: show the new count for a moment, then hide
+                hud.UpdateReloadAmmo(gun.AmmoInMag, capacity);
+                hud.HideReloadUIAfterDelay();
+            }
+
+            _wasReloading = gun.IsReloading;
+        }
+        else if (_wasReloading)
+        {
+            // Switched away mid-reload, which cancels it
+            hud.HideReloadUI();
+            _wasReloading = false;
+        }
+
+        // A throw uses up a charge, so refresh the counts and show the bar
+        int gadgetIndex = weapons.CurrentGadgetIndex;
+        if (input.FirePressed && gadgetIndex >= 0)
+        {
+            hud.UpdateGadgetCounts(weapons.Gadgets);
+            hud.ShowGadgetSelection(gadgetIndex);
+        }
     }
 
     private void UpdateFov(bool aiming, float deltaTime)

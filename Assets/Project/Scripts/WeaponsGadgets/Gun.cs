@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 // Put this on the root of a weapon prefab and assign a GunData.
 public class Gun : Equippable
@@ -8,6 +9,9 @@ public class Gun : Equippable
     [SerializeField] private GunData _data;
     [SerializeField] private Transform _muzzle;      // empty object at the end of the barrel
     [SerializeField] private AudioSource _audio;
+    [SerializeField] HUDController _hudUI;
+    [SerializeField] private Texture2D _hudIcon;
+    [SerializeField] private string _hudName;
 
     public GunData Data => _data;
     public int AmmoInMag { get; private set; }
@@ -101,6 +105,12 @@ public class Gun : Equippable
         if (IsReloading || AmmoInMag == _data.magazineSize || ReserveAmmo <= 0)
             return;
 
+        _hudUI.ShowReloadUI
+        (
+            AmmoInMag,
+            _data.magazineSize
+        );
+
         StartCoroutine(Reload());
     }
 
@@ -117,5 +127,12 @@ public class Gun : Equippable
         AmmoInMag += loaded;
         ReserveAmmo -= loaded;
         IsReloading = false;
+
+        _hudUI.UpdateReloadAmmo
+        (
+            AmmoInMag,
+            _data.magazineSize
+        );
+        _hudUI.HideReloadUI();
     }
 }

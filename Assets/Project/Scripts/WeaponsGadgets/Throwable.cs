@@ -7,11 +7,13 @@ public class Throwable : Equippable
     [SerializeField] private GameObject _projectilePrefab;   // needs a Rigidbody and a Grenade script
     [SerializeField] private int _count = 2;
     [SerializeField] private float _throwSpeed = 12f;
+    [Tooltip("How far in front of the camera the grenade appears. Keep it larger than the player's capsule radius.")]
+    [SerializeField] private float _spawnDistance = 1f;
     [SerializeField] private float _cooldown = 0.8f;
     [SerializeField] private AudioClip _throwSound;
-    [SerializeField] private float _spawnDistance = 1f;
 
     public int Count => _count;
+    public override int Charges => _count;   // shown on the HUD as "x 2"
 
     private float _nextThrowTime;
 
@@ -26,7 +28,6 @@ public class Throwable : Equippable
         // Spawn in front of the camera, clear of the player's capsule
         GameObject grenade = Instantiate(_projectilePrefab, aim.position + aim.forward * _spawnDistance, aim.rotation);
         grenade.GetComponent<Rigidbody>().linearVelocity = aim.forward * _throwSpeed;
-        grenade.SetActive(true);
 
         if (_throwSound != null)
             AudioSource.PlayClipAtPoint(_throwSound, aim.position);

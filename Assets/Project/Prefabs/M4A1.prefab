@@ -82,6 +82,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 2800000, guid: 4fdbafb61eb139a44bc4815927e2d02e, type: 3}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _icon
+      value: 
+      objectReference: {fileID: 2800000, guid: 4fdbafb61eb139a44bc4815927e2d02e, type: 3}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _hudUI
+      value: 
+      objectReference: {fileID: 92549376720881590, guid: a32d03d071224824c9311e8e60fcbbc6, type: 3}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _hudIcon
+      value: 
+      objectReference: {fileID: 2800000, guid: 4fdbafb61eb139a44bc4815927e2d02e, type: 3}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _hudName
+      value: AK 47
+      objectReference: {fileID: 0}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: gadgetName
+      value: AK47
+      objectReference: {fileID: 0}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _displayName
+      value: AK 47
+      objectReference: {fileID: 0}
     - target: {fileID: 116088504116739002, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

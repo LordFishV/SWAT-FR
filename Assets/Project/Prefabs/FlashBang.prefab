@@ -127,16 +127,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 2800000, guid: 560c549f5bcd76f4981dfc9e931cc3bd, type: 3}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: _icon
+      value: 
+      objectReference: {fileID: 2800000, guid: 560c549f5bcd76f4981dfc9e931cc3bd, type: 3}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
       propertyPath: _count
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: _hudIcon
+      value: 
+      objectReference: {fileID: 2800000, guid: 560c549f5bcd76f4981dfc9e931cc3bd, type: 3}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: _hudName
+      value: Flash Bang
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: gadgetName
+      value: Flash Bang
       objectReference: {fileID: 0}
     - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
       propertyPath: _throwSpeed
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: _displayName
+      value: Flash Bang
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
       propertyPath: _spawnDistance
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
+      propertyPath: remainingCharges
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5611481972217737018, guid: 3591f16a9d51f3744b50656f39a54fdc, type: 3}
       propertyPath: _projectilePrefab

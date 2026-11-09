@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Holds the player's primary, secondary and gadgets, and switches between them.
 // Put it on the Player. Assign the Holder (an empty object under the camera)
@@ -13,9 +13,13 @@ public class WeaponManager : MonoBehaviour
 
     public Equippable Current { get; private set; }
 
+    // For the HUD
+    public IReadOnlyList<Equippable> Gadgets => _gadgets;
+    public int CurrentGadgetIndex => _gadgets.IndexOf(Current);   // -1 if not holding a gadget
+
     private Equippable _primary;
     private Equippable _secondary;
-    private Equippable[] _gadgets;
+    private readonly List<Equippable> _gadgets = new List<Equippable>();
     private int _gadgetIndex = -1;
 
     public void Initialise()
@@ -23,29 +27,20 @@ public class WeaponManager : MonoBehaviour
         _primary = Spawn(_primaryPrefab);
         _secondary = Spawn(_secondaryPrefab);
 
-        _gadgets = new Equippable[_gadgetPrefabs.Length];
-        for (int i = 0; i < _gadgets.Length; i++)
-            _gadgets[i] = Spawn(_gadgetPrefabs[i]);
+        foreach (Equippable prefab in _gadgetPrefabs)
+        {
+            Equippable gadget = Spawn(prefab);
+            if (gadget != null)
+                _gadgets.Add(gadget);
+        }
 
         Equip(_primary);
     }
 
     public void UpdateWeapons(PlayerInput input, Transform aim)
     {
-        if (Current == null) return;
-
-        Current.UpdateItem(input, aim);
-
-        if (input.Aim)
-        {
-            _holder.transform.localPosition = new Vector3(0, -0.4f, 1f);
-            _holder.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
-        else
-        {
-            _holder.transform.localPosition = new Vector3(0.6f, -0.4f, 1f);
-            _holder.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
+        if (Current != null)
+            Current.UpdateItem(input, aim);
     }
 
     public void SelectPrimary() => Equip(_primary);
@@ -53,10 +48,10 @@ public class WeaponManager : MonoBehaviour
 
     public void CycleGadget()
     {
-        if (_gadgets.Length == 0)
+        if (_gadgets.Count == 0)
             return;
 
-        _gadgetIndex = (_gadgetIndex + 1) % _gadgets.Length;
+        _gadgetIndex = (_gadgetIndex + 1) % _gadgets.Count;
         Equip(_gadgets[_gadgetIndex]);
     }
 

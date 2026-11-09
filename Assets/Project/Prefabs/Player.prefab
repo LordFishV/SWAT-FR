@@ -179,6 +179,7 @@ MonoBehaviour:
   _anchorRunHeight: 0.8
   _anchorCrouchHeight: 0.8
   _anchorProneHeight: 0.8
+  _interactionDistance: 3
 --- !u!1 &1577086677957306253
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +618,7 @@ MonoBehaviour:
   cameraSpring: {fileID: 2176851194216202914}
   cameraLean: {fileID: 8127559724677430297}
   weapons: {fileID: 1045672383867003511}
+  hud: {fileID: 92549376720881590, guid: a32d03d071224824c9311e8e60fcbbc6, type: 3}
   viewCamera: {fileID: 3783916521640888241}
   hipFov: 80
   aimFov: 55

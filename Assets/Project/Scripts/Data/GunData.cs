@@ -24,6 +24,7 @@ public class GunData : ScriptableObject
     public int magazineSize = 30;
     public int reserveAmmo = 90;
     public float reloadTime = 2f;
+    public string ammoType = "5.56 × 45 mm";    // shown on the reload HUD
 
     [Header("Effects")]
     public GameObject muzzleFlashPrefab;
