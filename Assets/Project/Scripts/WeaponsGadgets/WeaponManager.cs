@@ -3,7 +3,7 @@ using UnityEngine;
 
 // Holds the player's primary, secondary and gadgets, and switches between them.
 // Put it on the Player. Assign the Holder (an empty object under the camera)
-// and drag your weapon PREFABS into the slots (from the Project window).
+// and drag your weapon prefabs into there slots.
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] private Transform _holder;
@@ -22,13 +22,11 @@ public class WeaponManager : MonoBehaviour
     private readonly List<Equippable> _gadgets = new List<Equippable>();
     private int _gadgetIndex = -1;
 
-    public void Initialise()
-    {
+    public void Initialise() {
         _primary = Spawn(_primaryPrefab);
         _secondary = Spawn(_secondaryPrefab);
 
-        foreach (Equippable prefab in _gadgetPrefabs)
-        {
+        foreach (Equippable prefab in _gadgetPrefabs) {
             Equippable gadget = Spawn(prefab);
             if (gadget != null)
                 _gadgets.Add(gadget);
@@ -37,8 +35,7 @@ public class WeaponManager : MonoBehaviour
         Equip(_primary);
     }
 
-    public void UpdateWeapons(PlayerInput input, Transform aim)
-    {
+    public void UpdateWeapons(PlayerInput input, Transform aim) {
         if (Current != null)
             Current.UpdateItem(input, aim);
     }
@@ -46,8 +43,7 @@ public class WeaponManager : MonoBehaviour
     public void SelectPrimary() => Equip(_primary);
     public void SelectSecondary() => Equip(_secondary);
 
-    public void CycleGadget()
-    {
+    public void CycleGadget() {
         if (_gadgets.Count == 0)
             return;
 
@@ -56,8 +52,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     // Every item is spawned once and hidden. Ammo and counts are kept when you switch.
-    private Equippable Spawn(Equippable prefab)
-    {
+    private Equippable Spawn(Equippable prefab) {
         if (prefab == null)
             return null;
 
@@ -66,8 +61,7 @@ public class WeaponManager : MonoBehaviour
         return item;
     }
 
-    private void Equip(Equippable item)
-    {
+    private void Equip(Equippable item) {
         if (item == null || item == Current)
             return;
 

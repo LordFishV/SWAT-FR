@@ -17,8 +17,7 @@ public class Throwable : Equippable
 
     private float _nextThrowTime;
 
-    public override void UpdateItem(PlayerInput input, Transform aim)
-    {
+    public override void UpdateItem(PlayerInput input, Transform aim) {
         if (!input.FirePressed || _count <= 0 || Time.time < _nextThrowTime)
             return;
 

@@ -13,17 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField] private HUDController hud;
     [SerializeField] private Camera viewCamera;     // the Main Camera, for aim zoom
     [SerializeField] private float hipFov = 80f;
-    [SerializeField] private float aimFov = 55f;
     [SerializeField] private float fovResponse = 15f;
 
     private PlayerInputActions _inputActions;
 
-    void Start()
-    {
+    void Start() {
         Cursor.lockState = CursorLockMode.Locked;
-
-        _inputActions = new PlayerInputActions();
-        _inputActions.Enable();
 
         playerCharacter.Initilise();
         playerCamera.Initilise(playerCharacter.GetCameraAnchor());
@@ -33,28 +28,27 @@ public class Player : MonoBehaviour
 
         weapons.Initialise();
 
-        if (hud != null)
-        {
+        if (hud != null) {
             hud.Initialise();
             hud.BuildGadgetList(weapons.Gadgets);
         }
     }
 
-    private void OnDestroy()
-    {
-        _inputActions.Dispose();
+    private void OnEnable() {
+        _inputActions = new PlayerInputActions();
+        _inputActions.Enable();
     }
+    private void OnDisable() => _inputActions.Disable();
+    private void OnDestroy() => _inputActions.Dispose();
 
-    void Update()
-    {
+    void Update() {
         PlayerInputActions.GameplayActions input = _inputActions.Gameplay;
         float deltaTime = Time.deltaTime;
 
         Transform cameraAnchor = playerCharacter.GetCameraAnchor();
         CharacterState state = playerCharacter.GetState();
 
-        PlayerInput playerInput = new PlayerInput
-        {
+        PlayerInput playerInput = new PlayerInput {
             LookRotation = playerCamera.transform.rotation,
             Move = input.Move.ReadValue<Vector2>(),
             Look = input.Look.ReadValue<Vector2>(),
@@ -83,8 +77,7 @@ public class Player : MonoBehaviour
             weapons.SelectPrimary();
         if (input.EquipSecondary.WasPressedThisFrame())
             weapons.SelectSecondary();
-        if (input.CycleGadget.WasPressedThisFrame())
-        {
+        if (input.CycleGadget.WasPressedThisFrame()) {
             weapons.CycleGadget();
             if (hud != null)
                 hud.ShowGadgetSelection(weapons.CurrentGadgetIndex);
@@ -93,13 +86,11 @@ public class Player : MonoBehaviour
         weapons.UpdateWeapons(playerInput, playerCamera.transform);
         UpdateHud(playerInput);
 
-        // Zoom in while aiming a gun
-        bool aiming = playerInput.Aim && weapons.Current is Gun;
-        UpdateFov(aiming, deltaTime);
+        // Zoom follows how far the current gun is aimed
+        UpdateFov(deltaTime);
 
 #if UNITY_EDITOR
-        if (Keyboard.current != null && Keyboard.current.tKey.wasPressedThisFrame)
-        {
+        if (Keyboard.current != null && Keyboard.current.tKey.wasPressedThisFrame) {
             var ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hit))
                 Teleport(hit.point);
@@ -110,21 +101,17 @@ public class Player : MonoBehaviour
     private bool _wasReloading;
 
     // Shows the reload panel when a reload starts and keeps the gadget counts up to date
-    private void UpdateHud(PlayerInput input)
-    {
+    private void UpdateHud(PlayerInput input) {
         if (hud == null)
             return;
 
-        if (weapons.Current is Gun gun)
-        {
+        if (weapons.Current is Gun gun) {
             int capacity = gun.Data.magazineSize;
 
-            if (gun.IsReloading && !_wasReloading)
-            {
+            if (gun.IsReloading && !_wasReloading) {
                 hud.ShowReloadUI(gun.AmmoInMag, capacity, gun.Data.ammoType);
             }
-            else if (!gun.IsReloading && _wasReloading)
-            {
+            else if (!gun.IsReloading && _wasReloading) {
                 // Reload finished: show the new count for a moment, then hide
                 hud.UpdateReloadAmmo(gun.AmmoInMag, capacity);
                 hud.HideReloadUIAfterDelay();
@@ -132,8 +119,7 @@ public class Player : MonoBehaviour
 
             _wasReloading = gun.IsReloading;
         }
-        else if (_wasReloading)
-        {
+        else if (_wasReloading) {
             // Switched away mid-reload, which cancels it
             hud.HideReloadUI();
             _wasReloading = false;
@@ -141,24 +127,24 @@ public class Player : MonoBehaviour
 
         // A throw uses up a charge, so refresh the counts and show the bar
         int gadgetIndex = weapons.CurrentGadgetIndex;
-        if (input.FirePressed && gadgetIndex >= 0)
-        {
+        if (input.FirePressed && gadgetIndex >= 0) {
             hud.UpdateGadgetCounts(weapons.Gadgets);
             hud.ShowGadgetSelection(gadgetIndex);
         }
     }
 
-    private void UpdateFov(bool aiming, float deltaTime)
-    {
+    private void UpdateFov(float deltaTime) {
         if (viewCamera == null)
             return;
 
-        float targetFov = aiming ? aimFov : hipFov;
+        // Blend between the hip FOV and the gun's aim FOV by how far it is aimed
+        float targetFov = hipFov;
+        if (weapons.Current is Gun gun)
+            targetFov = Mathf.Lerp(hipFov, gun.Data.aimFov, gun.AimAmount);
+
         viewCamera.fieldOfView = Mathf.Lerp(viewCamera.fieldOfView, targetFov, 1f - Mathf.Exp(-fovResponse * deltaTime));
     }
 
-    public void Teleport(Vector3 position)
-    {
+    public void Teleport(Vector3 position) =>
         playerCharacter.SetPosition(position);
-    }
 }

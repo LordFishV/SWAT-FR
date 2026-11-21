@@ -26,6 +26,14 @@ public class GunData : ScriptableObject
     public float reloadTime = 2f;
     public string ammoType = "5.56 × 45 mm";    // shown on the reload HUD
 
+    [Header("Aiming")]
+    [Tooltip("Camera field of view when fully aimed. Lower zooms in more (sniper: 20).")]
+    public float aimFov = 55f;
+    [Tooltip("Seconds to go from hip to fully aimed.")]
+    public float aimTime = 0.15f;
+    [Tooltip("Spread is multiplied by this when fully aimed. 0.25 = four times tighter.")]
+    [Range(0f, 1f)] public float aimSpreadMultiplier = 0.25f;
+
     [Header("Effects")]
     public GameObject muzzleFlashPrefab;
     public AudioClip fireSound;

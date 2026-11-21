@@ -2,8 +2,7 @@ using UnityEngine;
 
 // Anything the player can hold in their hands: guns, grenades, tools.
 // The WeaponManager only knows about this class, so it can switch between any of them.
-public abstract class Equippable : MonoBehaviour
-{
+public abstract class Equippable : MonoBehaviour {
     [Header("HUD")]
     [SerializeField] private string _displayName;
     [SerializeField] private Texture2D _icon;
