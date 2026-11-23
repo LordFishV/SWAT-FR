@@ -19,14 +19,6 @@ public enum WeaponSlot {
 public enum WeaponFireMode {
     SemiAuto, FullAuto, Burst
 }
-/// <summary>Run input type (Toggle/Hold)")]</summary>
-public enum RunInput {
-    None, Toggle, Hold
-}
-/// <summary>Crouch input type (Toggle/Hold)</summary>
-public enum CrouchInput {
-    None, Toggle, Hold
-}
 
 /// <summary>Current player stance</summary>
 public enum Stance {
@@ -106,9 +98,9 @@ public struct PlayerInput {
     /// <summary>Holds the Look input from the mouse</summary>
     public Vector2 Look;
     /// <summary>Holds the Run type (Hold/Toggle)</summary>
-    public RunInput Run;
+    public ButtonState Run;
     /// <summary>Holds the Crouch type (Hold/Toggle)</summary>
-    public CrouchInput Crouch;
+    public ButtonState Crouch;
     /// <summary>Holds the Aim input from the Mouse</summary>
     public bool Aim;
     /// <summary>Holds the Interact input from the keyboard</summary>

@@ -99,7 +99,7 @@
 }
 
 .gadget-slot {
-    width: 78px;
+    width: 78px;  
     height: 90px;
 
     margin-left: 3px;
@@ -140,4 +140,12 @@
 .gadget-count {
     color: rgb(170, 173, 167);
     font-size: 10px;
+}
+
+.blind-overlay {
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+
+    background-color: rgb(255, 255, 255);
+    opacity: 0;
 }

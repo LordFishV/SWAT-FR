@@ -11,6 +11,10 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
     [SerializeField] private Transform _cameraAnchor;
     [Space]
 
+    [Header("Input Modes")]
+    [SerializeField] private StanceInputType _runMode = StanceInputType.Hold;
+    [SerializeField] private StanceInputType _crouchMode = StanceInputType.Toggle;
+
     [Header("Movement")]
     [SerializeField] private float _walkSpeed = 20f;
     [SerializeField] private float _runSpeed = 30f;
@@ -86,10 +90,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
         Stance previousRequest = _requestedStance;
 
         // Handle stance input
-        if (input.Run == RunInput.Toggle)
-            _requestedStance = _requestedStance is Stance.Run ? Stance.Stand : Stance.Run;
-        if (input.Crouch == CrouchInput.Toggle)
-            _requestedStance = _requestedStance is Stance.Crouch ? Stance.Stand : Stance.Crouch;
+        _requestedStance = StanceInput.Resolve(_requestedStance, input, _runMode, _crouchMode);
 
         _requestedInteraction = input.Interact;
     }
@@ -247,8 +248,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
     public void OnGroundHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport) { }
 
     public void OnMovementHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport) {
-        _state.Acceleration = Vector3.ProjectOnPlane
-        (
+        _state.Acceleration = Vector3.ProjectOnPlane(
             vector: _state.Acceleration,
             planeNormal: hitNormal
         );

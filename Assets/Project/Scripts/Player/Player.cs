@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [Header("Weapons")]
     [SerializeField] private WeaponManager weapons;
     [SerializeField] private HUDController hud;
+    [SerializeField] private Blindable blindable;   // on the Player, flashbangs blind this
     [SerializeField] private Camera viewCamera;     // the Main Camera, for aim zoom
     [SerializeField] private float hipFov = 80f;
     [SerializeField] private float fovResponse = 15f;
@@ -49,12 +50,13 @@ public class Player : MonoBehaviour
         Transform cameraAnchor = playerCharacter.GetCameraAnchor();
         CharacterState state = playerCharacter.GetState();
 
-        PlayerInput playerInput = new PlayerInput {
+        PlayerInput playerInput = new PlayerInput
+        {
             LookRotation = playerCamera.transform.rotation,
             Move = input.Move.ReadValue<Vector2>(),
             Look = input.Look.ReadValue<Vector2>(),
-            Run = input.Run.WasPressedThisFrame() ? RunInput.Toggle : RunInput.None,
-            Crouch = input.Crouch.WasPressedThisFrame() ? CrouchInput.Toggle : CrouchInput.None,
+            Run = ReadButton(input.Run),
+            Crouch = ReadButton(input.Crouch),
 
             FirePressed = input.Fire.WasPressedThisFrame(),
             FireHeld = input.Fire.IsPressed(),
@@ -102,20 +104,36 @@ public class Player : MonoBehaviour
 #endif
     }
 
+    // Reads everything a button did this frame
+    private static ButtonState ReadButton(InputAction action) {
+        return new ButtonState {
+            Pressed = action.WasPressedThisFrame(),
+            Held = action.IsPressed(),
+            Released = action.WasReleasedThisFrame()
+        };
+    }
+
     private bool _wasReloading;
 
     // Shows the reload panel when a reload starts and keeps the gadget counts up to date
-    private void UpdateHud(PlayerInput input) {
+    private void UpdateHud(PlayerInput input)
+    {
         if (hud == null)
             return;
 
-        if (weapons.Current is Gun gun) {
+        // White-out from flashbangs
+        hud.SetBlindAmount(blindable != null ? blindable.Intensity : 0f);
+
+        if (weapons.Current is Gun gun)
+        {
             int capacity = gun.Data.magazineSize;
 
-            if (gun.IsReloading && !_wasReloading) {
+            if (gun.IsReloading && !_wasReloading)
+            {
                 hud.ShowReloadUI(gun.AmmoInMag, capacity, gun.Data.ammoType);
             }
-            else if (!gun.IsReloading && _wasReloading) {
+            else if (!gun.IsReloading && _wasReloading)
+            {
                 // Reload finished: show the new count for a moment, then hide
                 hud.UpdateReloadAmmo(gun.AmmoInMag, capacity);
                 hud.HideReloadUIAfterDelay();
@@ -123,7 +141,8 @@ public class Player : MonoBehaviour
 
             _wasReloading = gun.IsReloading;
         }
-        else if (_wasReloading) {
+        else if (_wasReloading)
+        {
             // Switched away mid-reload, which cancels it
             hud.HideReloadUI();
             _wasReloading = false;
@@ -131,7 +150,8 @@ public class Player : MonoBehaviour
 
         // A throw uses up a charge, so refresh the counts and show the bar
         int gadgetIndex = weapons.CurrentGadgetIndex;
-        if (input.FirePressed && gadgetIndex >= 0) {
+        if (input.FirePressed && gadgetIndex >= 0)
+        {
             hud.UpdateGadgetCounts(weapons.Gadgets);
             hud.ShowGadgetSelection(gadgetIndex);
         }

@@ -53,6 +53,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3887652194957038499, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
+      propertyPath: _fuseTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887652194957038499, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
       propertyPath: _blindSeconds
       value: 6
       objectReference: {fileID: 0}
@@ -62,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 8bfb43069acc02749ace7cf648006a0c, type: 3}
     - target: {fileID: 3887652194957038499, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
       propertyPath: _hitMask.m_Bits
-      value: 63
+      value: 383
       objectReference: {fileID: 0}
     - target: {fileID: 3887652194957038499, guid: f2368520ab175e64fbaaf4d0edae3323, type: 3}
       propertyPath: _explosionPrefab

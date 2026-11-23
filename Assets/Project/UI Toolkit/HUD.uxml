@@ -54,6 +54,14 @@
 
         </ui:VisualElement>
 
+
+        <!-- FLASH BANG -->
+
+        <ui:VisualElement
+            name="BlindOverlay"
+            class="blind-overlay"
+            picking-mode="Ignore" />
+
     </ui:VisualElement>
 
 </ui:UXML>
