@@ -21,10 +21,18 @@ public class GunData : ScriptableObject
     public int pellets = 1;
     [Tooltip("Random angle in degrees. Aiming makes it smaller.")]
     public float spread = 1f;
-    [Tooltip("degrees of camera kick per shot")]
-    public float recoil = 1f;
     [Tooltip("The hit mask for all weapons. Include player and enemy layers for all weapons, also include all hard surfaces")]
     public LayerMask hitMask = ~0;
+
+    [Header("Recoil")]
+    [Tooltip("Barrel tilt in per shot in degrees")]
+    public float recoil = 2f;
+    [Tooltip("How much the weapon kicks back per shot in meters")]
+    public float kickback = 0.03f;
+    [Tooltip("How fast the gun settles back per shot")]
+    public float recoilRecovery = 10f;
+    [Tooltip("The amount to reduce the recoil when aming (0.5 = 50% base recoil)")]
+    [Range(0f, 1f)] public float aimRecoilMultiplier = 0.5f;
 
     [Header("Ammo")]
     [Tooltip("The max mag size of the weapon")]

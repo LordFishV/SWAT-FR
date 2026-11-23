@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: M9A1 Tactical
   damage: 15
-  shotsPerSecond: 8
-  automatic: 0
+  shotsPerSecond: 6
+  automatic: 1
   range: 200
-  pellets: 1
+  pellets: 100
   spread: 1
-  recoil: 0.2
+  recoil: 10
   hitMask:
     serializedVersion: 2
     m_Bits: 344

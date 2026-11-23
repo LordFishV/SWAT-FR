@@ -76,7 +76,13 @@ public class Player : MonoBehaviour
         if (input.EquipSecondary.WasPressedThisFrame())
             weapons.SelectSecondary();
         if (input.CycleGadget.WasPressedThisFrame()) {
-            weapons.CycleGadget();
+            bool holdingGadget = weapons.CurrentGadgetIndex >= 0;
+
+            if (holdingGadget)
+                weapons.CycleGadget();     // next gadget
+            else
+                weapons.SelectGadget();    // back to the last one
+
             if (hud != null)
                 hud.ShowGadgetSelection(weapons.CurrentGadgetIndex);
         }

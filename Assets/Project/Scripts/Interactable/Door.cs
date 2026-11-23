@@ -30,8 +30,7 @@ public class Door : MonoBehaviour, IInteractable, IDamageable
 
     private GameObject _interactingObject;
 
-    private void Start()
-    {
+    private void Start() {
         // Store initial rotation as CLOSED state
         _closedRotation = transform.rotation;
 
@@ -39,20 +38,16 @@ public class Door : MonoBehaviour, IInteractable, IDamageable
             Interact(_interactingObject);
     }
 
-    public void Interact(GameObject interactingObject)
-    {
+    public void Interact(GameObject interactingObject) {
         if (_isRotating) return; // prevent spam interaction
 
         Vector3 axis = GetAxisVector();
 
-        if (!_isOpen)
-        {
+        if (!_isOpen) {
             // Open door
             _targetRotation = _closedRotation *
             Quaternion.AngleAxis(rotationAmount * (int)rotationDirection, axis);
-        }
-        else
-        {
+        } else {
             // Close door
             _targetRotation = _closedRotation;
         }
@@ -61,28 +56,24 @@ public class Door : MonoBehaviour, IInteractable, IDamageable
         _isRotating = true;
     }
 
-    private void Update()
-    {
+    private void Update() {
         if (!_isRotating) return;
 
         transform.rotation =
-        Quaternion.RotateTowards
-        (
+        Quaternion.RotateTowards(
             from: transform.rotation,
             to: _targetRotation,
             maxDegreesDelta: rotationSpeed * Time.deltaTime
         );
 
         // Stop rotating when finished
-        if (Quaternion.Angle(transform.rotation, _targetRotation) < 0.1f)
-        {
+        if (Quaternion.Angle(transform.rotation, _targetRotation) < 0.1f) {
             transform.rotation = _targetRotation;
             _isRotating = false;
         }
     }
 
-    public void Breach(float force)
-    {
+    public void Breach(float force) {
         _health -= force;
 
         if (_health > 0f)
@@ -97,10 +88,8 @@ public class Door : MonoBehaviour, IInteractable, IDamageable
         Destroy(gameObject);
     }
 
-    private Vector3 GetAxisVector()
-    {
-        switch (rotationAxis)
-        {
+    private Vector3 GetAxisVector() {
+        switch (rotationAxis) {
             case RotationAxis.X: return Vector3.right;
             case RotationAxis.Y: return Vector3.up;
             case RotationAxis.Z: return Vector3.forward;
@@ -109,16 +98,15 @@ public class Door : MonoBehaviour, IInteractable, IDamageable
         return Vector3.up;
     }
 
-    public void OnHoverEnter(GameObject hoveringObject)
-    {
+    public void OnHoverEnter(GameObject hoveringObject) {
+
     }
 
-    public void OnHoverExit(GameObject hoveringObject)
-    {
+    public void OnHoverExit(GameObject hoveringObject) {
+
     }
 
-    public void ApplyDamage(float damageAmount)
-    {
+    public void ApplyDamage(float damageAmount) {
         Breach(damageAmount / 4);
     }
 }

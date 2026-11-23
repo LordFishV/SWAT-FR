@@ -19,6 +19,7 @@ public class WeaponManager : MonoBehaviour
 
     private Equippable _primary;
     private Equippable _secondary;
+    private Equippable _currentGadget;
     private readonly List<Equippable> _gadgets = new List<Equippable>();
     private int _gadgetIndex = -1;
 
@@ -42,8 +43,19 @@ public class WeaponManager : MonoBehaviour
 
     public void SelectPrimary() => Equip(_primary);
     public void SelectSecondary() => Equip(_secondary);
+    public void SelectGadget() {
+        if (_gadgets.Count == 0)
+            return;
 
-    public void CycleGadget() {
+        // Back to the last gadget used, or the first one if none has been used yet
+        if (_gadgetIndex < 0)
+            _gadgetIndex = 0;
+
+        Equip(_gadgets[_gadgetIndex]);
+    }
+
+    public void CycleGadget()
+    {
         if (_gadgets.Count == 0)
             return;
 

@@ -26,9 +26,4 @@ public class PlayerCamera : MonoBehaviour
     public void UpdatePosition(Transform anchor) {
         transform.position = anchor.position;
     }
-
-    /// <summary>Add basic recoil to the screen.</summary>
-    public void AddRecoil(Vector2 kick) {
-        _pitch -= kick.x; _yaw += kick.y;
-    }
 }
