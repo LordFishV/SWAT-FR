@@ -26,8 +26,7 @@ public class HUDController : MonoBehaviour
 
     private bool ready;
 
-    // Called by Player.Start, NOT Awake. The UIDocument builds its visual tree in its
-    // own OnEnable
+    /// <summary>Called by the Players Start and not Awake due to UIDocuments building the visual tree in its own OnEnable</summary>
     public void Initialise() {
         if (uiDocument == null) {
             Debug.LogError("HUD: the UIDocument slot on HUDController is empty.", this);
@@ -61,7 +60,7 @@ public class HUDController : MonoBehaviour
         HideGadgetUI();
     }
 
-    // Reload Display
+    /// <summary>Re create the ammo graphic everytime its called as its called when reloading is called by the player.</summary>
     private void CreateMagazineGraphic(){
         magazineGraphic.Clear();
         ammoSegments.Clear();

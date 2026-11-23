@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private PlayerCharacter playerCharacter;
     [SerializeField] private PlayerCamera playerCamera;
     [SerializeField] private CameraSpring cameraSpring;
@@ -52,11 +53,8 @@ public class Player : MonoBehaviour
             LookRotation = playerCamera.transform.rotation,
             Move = input.Move.ReadValue<Vector2>(),
             Look = input.Look.ReadValue<Vector2>(),
-            Jump = input.Jump.WasPressedThisFrame(),
-            JumpSustain = input.Jump.IsPressed(),
             Run = input.Run.WasPressedThisFrame() ? RunInput.Toggle : RunInput.None,
             Crouch = input.Crouch.WasPressedThisFrame() ? CrouchInput.Toggle : CrouchInput.None,
-            Prone = input.Prone.WasPressedThisFrame() ? ProneInput.Toggle : ProneInput.None,
 
             FirePressed = input.Fire.WasPressedThisFrame(),
             FireHeld = input.Fire.IsPressed(),
@@ -67,7 +65,7 @@ public class Player : MonoBehaviour
         playerCamera.UpdateRotation(playerInput);
         playerCamera.UpdatePosition(cameraAnchor);
         cameraSpring.UpdateCameraSpring(deltaTime, cameraAnchor.up);
-        cameraLean.UpdateLean(deltaTime, state.Stance is Stance.Slide, state.Acceleration, cameraAnchor.up);
+        cameraLean.UpdateLean(deltaTime, state.Acceleration, cameraAnchor.up);
 
         playerCharacter.UpdateInput(playerInput);
         playerCharacter.UpdateBody(deltaTime);

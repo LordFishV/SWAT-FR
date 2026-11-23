@@ -87,6 +87,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2800000, guid: 4fdbafb61eb139a44bc4815927e2d02e, type: 3}
     - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: ebeb7b728a670dc45bb59a3c926703cf, type: 2}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: _icon
       value: 
       objectReference: {fileID: 2800000, guid: 4fdbafb61eb139a44bc4815927e2d02e, type: 3}
@@ -94,6 +98,10 @@ PrefabInstance:
       propertyPath: _hudUI
       value: 
       objectReference: {fileID: 92549376720881590, guid: a32d03d071224824c9311e8e60fcbbc6, type: 3}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _model
+      value: 
+      objectReference: {fileID: 5665136880401313276}
     - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: _hudIcon
       value: 
@@ -109,6 +117,14 @@ PrefabInstance:
     - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: _displayName
       value: AK 47
+      objectReference: {fileID: 0}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _aimPosition.x
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _aimPosition.y
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 116088504116739002, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: m_LocalScale.x
@@ -164,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2934455642623967201, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: m_Name
-      value: M4A1
+      value: AK47 Tactical
       objectReference: {fileID: 0}
     - target: {fileID: 4015647475260532356, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: m_LocalPosition.y

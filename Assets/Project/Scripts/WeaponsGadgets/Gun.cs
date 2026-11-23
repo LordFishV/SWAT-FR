@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Windows;
 
 // Put this on the root of a weapon prefab and assign a GunData.
 public class Gun : Equippable
 {
+    [Header("References")]
     [SerializeField] private GunData _data;
     [SerializeField] private Transform _muzzle;
     [SerializeField] private AudioSource _audio;
@@ -18,6 +20,9 @@ public class Gun : Equippable
     public int AmmoInMag { get; private set; }
     public int ReserveAmmo { get; private set; }
     public bool IsReloading { get; private set; }
+    public bool IsShooting { get; private set; }
+    public bool IsAiming { get; private set; }
+
 
     // 0 = hip fire, 1 = fully aimed. Smoothed over aimTime seconds.
     public float AimAmount { get; private set; }
@@ -25,13 +30,24 @@ public class Gun : Equippable
     private float _nextShotTime;
     private Vector3 _hipPosition;
     private PlayerCamera _camera;    // found automatically, used for recoil
+    private float _recoilRotation, _recoilPosition;
+    private Quaternion _defaultRotation;
+    private Vector3 _defaultPosition;
 
     private void Awake() {
         AmmoInMag = _data.magazineSize;
         ReserveAmmo = _data.reserveAmmo;
+        _defaultRotation = transform.localRotation;
+        _defaultPosition = transform.localPosition;
 
         if (_model != null)
             _hipPosition = _model.localPosition;
+    }
+
+    private void Update() {
+        if (!IsShooting)
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, _defaultRotation, 10f * Time.deltaTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, _defaultPosition, 10f * Time.deltaTime);
     }
 
     // Putting the gun away cancels a reload and drops out of aim
@@ -56,9 +72,9 @@ public class Gun : Equippable
 
     private void TryAim(PlayerInput input) {
         // You can't stay aimed while reloading
-        bool wantsToAim = input.Aim && !IsReloading;
+        IsAiming = input.Aim && !IsReloading;
 
-        if (wantsToAim) {
+        if (IsAiming) {
             AimAmount = Mathf.MoveTowards(AimAmount, 1f, Time.deltaTime / _data.aimTime);
         } else {
             AimAmount = Mathf.MoveTowards(AimAmount, 0f, Time.deltaTime / _data.aimTime);
@@ -72,8 +88,10 @@ public class Gun : Equippable
     }
 
     private void TryShoot(Transform aim) {
-        if (IsReloading || Time.time < _nextShotTime)
+        if (IsReloading || Time.time < _nextShotTime) {
+            IsShooting = false;
             return;
+        }
 
         if (AmmoInMag <= 0) {
             StartReload();
@@ -92,11 +110,10 @@ public class Gun : Equippable
             Vector3 direction = (aim.rotation * new Vector3(offset.x, offset.y, 1f)).normalized;
 
             if (Physics.Raycast(aim.position, direction, out RaycastHit hit, _data.range,
-                    _data.hitMask, QueryTriggerInteraction.Ignore))
-            {
+                    _data.hitMask, QueryTriggerInteraction.Ignore)) {
                 IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
                 if (target != null)
-                    target.ApplyDamage(_data.damage, gameObject);
+                    target.ApplyDamage(_data.damage);
             }
         }
 
@@ -104,6 +121,7 @@ public class Gun : Equippable
     }
 
     private void PlayShotEffects() {
+        IsShooting = true;
         if (_data.muzzleFlashPrefab != null) {
             Transform spawnPoint = _muzzle != null ? _muzzle : transform;
             GameObject flash = Instantiate(_data.muzzleFlashPrefab, spawnPoint);
@@ -113,10 +131,26 @@ public class Gun : Equippable
         if (_data.fireSound != null && _audio != null)
             _audio.PlayOneShot(_data.fireSound);
 
-        if (_camera == null)
-            _camera = GetComponentInParent<PlayerCamera>();
-        if (_camera != null)
-            _camera.AddRecoil(new Vector2(_data.recoil, Random.Range(-0.3f, 0.3f) * _data.recoil));
+        AddRecoila(Random.Range(0, _data.recoil));
+    }
+
+    public void AddRecoila(float kick) {
+        if (IsAiming) {
+            _recoilPosition -= kick * 0.01f;
+            _recoilRotation -= kick;
+
+            _recoilRotation = Mathf.Clamp(_recoilRotation, -89f, 89f);
+            transform.localRotation = Quaternion.Euler(_recoilRotation, 0f, 0f);
+            transform.localPosition = new Vector3(0f, 0f, _recoilPosition);
+
+            _recoilRotation = transform.localRotation.x;
+            _recoilPosition = transform.localPosition.x;
+        } else {
+            _recoilRotation -= kick;
+            _recoilRotation = Mathf.Clamp(_recoilRotation, -89f, 89f);
+            transform.localRotation = Quaternion.Euler(_recoilRotation, 0f, 0f);
+            _recoilRotation = transform.localRotation.x;
+        }
     }
 
     private void StartReload() {
@@ -128,6 +162,8 @@ public class Gun : Equippable
 
     private IEnumerator Reload() {
         IsReloading = true;
+        IsShooting = false;
+        IsAiming = false;
 
         if (_data.reloadSound != null && _audio != null)
             _audio.PlayOneShot(_data.reloadSound);

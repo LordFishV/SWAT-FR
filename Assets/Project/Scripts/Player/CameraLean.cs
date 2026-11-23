@@ -17,7 +17,7 @@ public class CameraLean : MonoBehaviour
     }
 
     /// <summary>Allows the camera to lean into the acceleration direction vector</summary>
-    public void UpdateLean(float deltaTime, bool isSliding, Vector3 acceleration, Vector3 up)
+    public void UpdateLean(float deltaTime, Vector3 acceleration, Vector3 up)
     {
         // Project the acceleration onto the plane defined by the up vector to get the planar acceleration
         Vector3 planarAcceleration = Vector3.ProjectOnPlane(acceleration, up);
@@ -41,19 +41,6 @@ public class CameraLean : MonoBehaviour
 
         // Reset the local rotation to that of the parent transform to ensure the lean is applied correctly
         transform.localRotation = Quaternion.identity;
-
-        // Apply the lean based on the damped acceleration and the appropriate lean strength for walking or sliding
-        float targetLeanStrength = isSliding
-            ? _leanSlideStrength
-            : _leanWalkStrength;
-
-        _smoothLeanStrength = Mathf.Lerp
-            (
-                _smoothLeanStrength,
-                targetLeanStrength,
-                1f - Mathf.Exp(-_strengthResponce * deltaTime)
-            );
-
         transform.rotation = Quaternion.AngleAxis(_dampedAcceleration.magnitude * _smoothLeanStrength, leanAxis) * transform.rotation;
     }
 }

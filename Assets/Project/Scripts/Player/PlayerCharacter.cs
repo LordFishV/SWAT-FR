@@ -90,8 +90,6 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
             _requestedStance = _requestedStance is Stance.Run ? Stance.Stand : Stance.Run;
         if (input.Crouch == CrouchInput.Toggle)
             _requestedStance = _requestedStance is Stance.Crouch ? Stance.Stand : Stance.Crouch;
-        if (input.Prone == ProneInput.Toggle)
-            _requestedStance = _requestedStance is Stance.Prone ? Stance.Stand : Stance.Prone;
 
         _requestedInteraction = input.Interact;
     }
@@ -107,18 +105,18 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
         // Calculate the camera anchor height based on the current stance and the defined anchor heights
         float cameraAnchorHeight = currentHeight * (
             _state.Stance switch {
-                Stance.Stand                    => _anchorStandHeight,  // Use the defined anchor height for standing
-                Stance.Run                      => _anchorRunHeight,    // Use the defined anchor height for running
-                Stance.Crouch or Stance.Slide   => _anchorCrouchHeight, // Use the defined anchor height for crouching
+                Stance.Stand    => _anchorStandHeight,  // Use the defined anchor height for standing
+                Stance.Run      => _anchorRunHeight,    // Use the defined anchor height for running
+                Stance.Crouch   => _anchorCrouchHeight, // Use the defined anchor height for crouching
                 _ => _anchorStandHeight                 // Default to the standing anchor height for any other stance
             }
         );
 
         float heightResponse = (
             _state.Stance switch {
-                Stance.Stand                    => _walkHeightResponse,   // Use the defined response for standing
-                Stance.Run                      => _runHeightResponse,    // Use the defined response for running
-                Stance.Crouch or Stance.Slide   => _crouchHeightResponse, // Use the defined response for crouching
+                Stance.Stand        => _walkHeightResponse,   // Use the defined response for standing
+                Stance.Run      => _runHeightResponse,    // Use the defined response for running
+                Stance.Crouch   => _crouchHeightResponse, // Use the defined response for crouching
                 _ => _walkHeightResponse                  // Default to the standing response for any other stance
             }
         );
@@ -152,38 +150,34 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
                 surfaceNormal: _motor.GroundingStatus.GroundNormal
             ) * _requestedMovement.magnitude;
 
-            // Movement logic
-            if (_state.Stance is not Stance.Slide)
+            // Calculate the character's speed based on the current stance
+            float speed = _state.Stance switch
             {
-                // Calculate the character's speed based on the current stance
-                float speed = _state.Stance switch
-                {
-                    Stance.Stand => _walkSpeed,      // Use walk speed when standing
-                    Stance.Run => _runSpeed,       // Use run speed when running
-                    Stance.Crouch => _crouchSpeed,    // Use crouch speed when crouching
-                    _ => _walkSpeed                     // Default to walk speed for any other stance
-                };
-                // Calculate the speed response based on the current stance
-                float response = _state.Stance switch
-                {
-                    Stance.Stand => _walkResponse,   // Use walk response when standing
-                    Stance.Run => _runResponse,    // Use run response when running
-                    Stance.Crouch => _crouchResponse, // Use crouch response when crouching
-                    _ => _walkResponse                  // Default to walk response for any other stance
-                };
+                Stance.Stand => _walkSpeed,      // Use walk speed when standing
+                Stance.Run => _runSpeed,       // Use run speed when running
+                Stance.Crouch => _crouchSpeed,    // Use crouch speed when crouching
+                _ => _walkSpeed                     // Default to walk speed for any other stance
+            };
+            // Calculate the speed response based on the current stance
+            float response = _state.Stance switch
+            {
+                Stance.Stand => _walkResponse,   // Use walk response when standing
+                Stance.Run => _runResponse,    // Use run response when running
+                Stance.Crouch => _crouchResponse, // Use crouch response when crouching
+                _ => _walkResponse                  // Default to walk response for any other stance
+            };
 
-                // Set the current velocity to the calculated grounded movement
-                Vector3 targetVelocity = groundedMovement * speed;
-                Vector3 moveVelocity = Vector3.Lerp
-                (
-                    a: currentVelocity,
-                    b: targetVelocity,
-                    t: 1f - Mathf.Exp(-response * deltaTime)
-                );
-                _state.Acceleration = moveVelocity - currentVelocity;
+            // Set the current velocity to the calculated grounded movement
+            Vector3 targetVelocity = groundedMovement * speed;
+            Vector3 moveVelocity = Vector3.Lerp
+            (
+                a: currentVelocity,
+                b: targetVelocity,
+                t: 1f - Mathf.Exp(-response * deltaTime)
+            );
+            _state.Acceleration = moveVelocity - currentVelocity;
 
-                currentVelocity = moveVelocity;
-            }
+            currentVelocity = moveVelocity;
         }
         else {
             // gravity is multiplied by the jump sustain gravity factor if the player is holding the jump button and moving upwards

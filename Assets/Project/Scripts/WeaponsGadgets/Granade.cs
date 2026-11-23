@@ -45,7 +45,7 @@ public class Grenade : MonoBehaviour
             if (_damage > 0f) {
                 IDamageable target = hit.GetComponentInParent<IDamageable>();
                 if (target != null && damaged.Add(target))
-                    target.ApplyDamage(_damage * strength, gameObject);
+                    target.ApplyDamage(_damage * strength);
             }
 
             if (_blindSeconds > 0f) {

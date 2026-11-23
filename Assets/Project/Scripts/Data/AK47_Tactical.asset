@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d61949f70a21c4b95bff19941aa4cd, type: 3}
+  m_Name: AK47_Tactical
+  m_EditorClassIdentifier: 
+  displayName: AK47 Tactical
+  damage: 25
+  shotsPerSecond: 8
+  automatic: 1
+  range: 1000
+  pellets: 1
+  spread: 1
+  recoil: 10
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 344
+  magazineSize: 30
+  reserveAmmo: 90
+  reloadTime: 2
+  ammoType: "5.56 \xD7 45 mm"
+  aimFov: 55
+  aimTime: 0.15
+  aimSpreadMultiplier: 0.25
+  muzzleFlashPrefab: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
+  fireSound: {fileID: 8300000, guid: ce504a33c23f6c445956d3e395a573fc, type: 3}
+  reloadSound: {fileID: 8300000, guid: 7c2c98c919d58e346bffe00d75adb7a9, type: 3}

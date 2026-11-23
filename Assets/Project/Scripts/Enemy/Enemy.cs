@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
 
     [Header("Layers")]
-    [SerializeField] private LayerMask terrainLasyer;
+    [SerializeField] private LayerMask terrainLayer;
     [SerializeField] private LayerMask playerLayerMask;
 
     [Header("Vision Settings")]

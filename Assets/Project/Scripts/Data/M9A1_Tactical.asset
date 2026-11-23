@@ -10,23 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42d61949f70a21c4b95bff19941aa4cd, type: 3}
-  m_Name: Glock17_Data
+  m_Name: M9A1_Tactical
   m_EditorClassIdentifier: 
-  displayName: Glock17
-  damage: 25
+  displayName: M9A1 Tactical
+  damage: 15
   shotsPerSecond: 8
-  automatic: 1
-  range: 1000
+  automatic: 0
+  range: 200
   pellets: 1
   spread: 1
-  recoil: 1
+  recoil: 0.2
   hitMask:
     serializedVersion: 2
-    m_Bits: 63
-  magazineSize: 30
-  reserveAmmo: 90
-  reloadTime: 1
-  ammoType: "5.56 \xD7 45 mm"
+    m_Bits: 344
+  magazineSize: 9
+  reserveAmmo: 36
+  reloadTime: 0.5
+  ammoType: 9mm
+  aimFov: 80
+  aimTime: 0.1
+  aimSpreadMultiplier: 0.15
   muzzleFlashPrefab: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
-  fireSound: {fileID: 8300000, guid: 8320d5e13f8b26e4b93950dc4034e165, type: 3}
+  fireSound: {fileID: 8300000, guid: bedb73c2d5f46ef49b4f860e802ee00f, type: 3}
   reloadSound: {fileID: 8300000, guid: 7c2c98c919d58e346bffe00d75adb7a9, type: 3}

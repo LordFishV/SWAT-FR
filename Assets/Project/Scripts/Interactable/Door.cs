@@ -117,7 +117,7 @@ public class Door : MonoBehaviour, IInteractable, IDamageable
     {
     }
 
-    public void ApplyDamage(float damageAmount, GameObject source)
+    public void ApplyDamage(float damageAmount)
     {
         Breach(damageAmount / 4);
     }

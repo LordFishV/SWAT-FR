@@ -36,6 +36,14 @@ PrefabInstance:
       propertyPath: _displayName
       value: Glock 17
       objectReference: {fileID: 0}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _aimPosition.x
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -9217329846908256786, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
+      propertyPath: _aimPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 116088504116739002, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -90,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2934455642623967201, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: m_Name
-      value: Glock17
+      value: M9A1 Tactical
       objectReference: {fileID: 0}
     - target: {fileID: 4015647475260532356, guid: c2b1630ad8ab7bd4798486f380331858, type: 3}
       propertyPath: m_LocalPosition.y
