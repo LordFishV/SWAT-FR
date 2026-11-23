@@ -5,6 +5,7 @@ using UnityEngine;
 public class Throwable : Equippable
 {
     [SerializeField] private GameObject _projectilePrefab;   // needs a Rigidbody and a Grenade script
+    [Tooltip("Start with atleast 1 so hammers can still be used.")]
     [SerializeField] private int _count = 2;
     [SerializeField] private float _throwSpeed = 12f;
     [Tooltip("How far in front of the camera the grenade appears. Keep it larger than the player's capsule radius.")]
@@ -14,6 +15,7 @@ public class Throwable : Equippable
 
     public int Count => _count;
     public override int Charges => _count;   // shown on the HUD as "x 2"
+    public bool IsThrowable;
 
     private float _nextThrowTime;
 
@@ -30,5 +32,8 @@ public class Throwable : Equippable
 
         if (_throwSound != null)
             AudioSource.PlayClipAtPoint(_throwSound, aim.position);
+
+        if (_count <= 0f)
+            gameObject.SetActive(false);
     }
 }

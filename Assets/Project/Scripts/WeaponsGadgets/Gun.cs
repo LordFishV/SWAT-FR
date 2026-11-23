@@ -79,8 +79,7 @@ public class Gun : Equippable
             _model.localPosition = _hipPosition;
     }
 
-    public override void UpdateItem(PlayerInput input, Transform aim)
-    {
+    public override void UpdateItem(PlayerInput input, Transform aim) {
         TryAim(input);
 
         if (input.Reload)
@@ -91,8 +90,7 @@ public class Gun : Equippable
             TryShoot(aim);
     }
 
-    private void TryAim(PlayerInput input)
-    {
+    private void TryAim(PlayerInput input) {
         // You can't stay aimed while reloading
         IsAiming = input.Aim && !IsReloading;
 
@@ -100,20 +98,17 @@ public class Gun : Equippable
         AimAmount = Mathf.MoveTowards(AimAmount, target, Time.deltaTime / _data.aimTime);
 
         // Slide the weapon between the hip position and the aim position
-        if (_model != null)
-        {
+        if (_model != null) {
             float eased = Mathf.SmoothStep(0f, 1f, AimAmount);
             _model.localPosition = Vector3.Lerp(_hipPosition, _aimPosition, eased);
         }
     }
 
-    private void TryShoot(Transform aim)
-    {
+    private void TryShoot(Transform aim) {
         if (IsReloading || Time.time < _nextShotTime)
             return;
 
-        if (AmmoInMag <= 0)
-        {
+        if (AmmoInMag <= 0) {
             StartReload();
             return;
         }
@@ -125,15 +120,13 @@ public class Gun : Equippable
         // Spread tightens as you aim
         float spread = Mathf.Lerp(_data.spread, _data.spread * _data.aimSpreadMultiplier, AimAmount);
 
-        for (int i = 0; i < _data.pellets; i++)
-        {
+        for (int i = 0; i < _data.pellets; i++) {
             // A random direction inside a small cone around where you are looking
             Vector2 offset = Random.insideUnitCircle * Mathf.Tan(spread * Mathf.Deg2Rad);
             Vector3 direction = (aim.rotation * new Vector3(offset.x, offset.y, 1f)).normalized;
 
             if (Physics.Raycast(aim.position, direction, out RaycastHit hit, _data.range,
-                    _data.hitMask, QueryTriggerInteraction.Ignore))
-            {
+                    _data.hitMask, QueryTriggerInteraction.Ignore)) {
                 IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
                 if (target != null)
                     target.ApplyDamage(_data.damage);
@@ -143,10 +136,8 @@ public class Gun : Equippable
         PlayShotEffects();
     }
 
-    private void PlayShotEffects()
-    {
-        if (_data.muzzleFlashPrefab != null)
-        {
+    private void PlayShotEffects() {
+        if (_data.muzzleFlashPrefab != null) {
             Transform spawnPoint = _muzzle != null ? _muzzle : transform;
             GameObject flash = Instantiate(_data.muzzleFlashPrefab, spawnPoint);
             Destroy(flash, 1f);
@@ -159,8 +150,7 @@ public class Gun : Equippable
         AddRecoil(Random.Range(_data.recoil * 0.6f, _data.recoil));
     }
 
-    public void AddRecoil(float kick)
-    {
+    public void AddRecoil(float kick) {
         // Aiming steadies the gun
         float scale = Mathf.Lerp(1f, _data.aimRecoilMultiplier, AimAmount);
 
@@ -168,16 +158,14 @@ public class Gun : Equippable
         _recoilKickback += _data.kickback * scale;
     }
 
-    private void StartReload()
-    {
+    private void StartReload() {
         if (IsReloading || AmmoInMag == _data.magazineSize || ReserveAmmo <= 0)
             return;
 
         StartCoroutine(Reload());
     }
 
-    private IEnumerator Reload()
-    {
+    private IEnumerator Reload() {
         IsReloading = true;
 
         if (_data.reloadSound != null && _audio != null)

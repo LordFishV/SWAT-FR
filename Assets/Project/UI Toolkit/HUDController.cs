@@ -30,10 +30,8 @@ public class HUDController : MonoBehaviour
 
     // Called by Player.Start, NOT Awake. The UIDocument builds its visual tree in its
     // own OnEnable, so querying it in Awake can find nothing.
-    public void Initialise()
-    {
-        if (uiDocument == null)
-        {
+    public void Initialise() {
+        if (uiDocument == null) {
             Debug.LogError("HUD: the UIDocument slot on HUDController is empty.", this);
             return;
         }
@@ -41,16 +39,7 @@ public class HUDController : MonoBehaviour
         VisualElement root = uiDocument.rootVisualElement;
 
         if (root == null)
-        {
-            Debug.LogError(
-                "HUD: the UIDocument has no root. " +
-                $"Panel Settings: {(uiDocument.panelSettings != null ? "assigned" : "MISSING")}. " +
-                $"Source Asset: {(uiDocument.visualTreeAsset != null ? "assigned" : "MISSING")}. " +
-                $"Component enabled: {uiDocument.enabled}. " +
-                $"GameObject active: {uiDocument.gameObject.activeInHierarchy}.",
-                this);
             return;
-        }
 
         reloadContainer = root.Q<VisualElement>("ReloadContainer");
         magazineGraphic = root.Q<VisualElement>("MagazineGraphic");
@@ -61,8 +50,7 @@ public class HUDController : MonoBehaviour
         blindOverlay = root.Q<VisualElement>("BlindOverlay");   // optional: HUD still works without it
 
         if (reloadContainer == null || magazineGraphic == null || magazineAmmo == null
-            || gadgetContainer == null || gadgetList == null)
-        {
+            || gadgetContainer == null || gadgetList == null) {
             Debug.LogError("HUD: could not find all named elements. Check the UIDocument has HUD.uxml as its Source Asset and a Panel Settings, and that the names match.", this);
             return;
         }
@@ -75,17 +63,12 @@ public class HUDController : MonoBehaviour
     }
 
 
-    // =================================
-    // RELOAD DISPLAY
-    // =================================
-
-    private void CreateMagazineGraphic()
-    {
+    // Reload Display
+    private void CreateMagazineGraphic() {
         magazineGraphic.Clear();
         ammoSegments.Clear();
 
-        for (int i = 0; i < magazineSegments; i++)
-        {
+        for (int i = 0; i < magazineSegments; i++) {
             VisualElement segment = new VisualElement();
             segment.AddToClassList("ammo-segment");
 
@@ -94,8 +77,7 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    public void ShowReloadUI(int currentAmmo, int magazineCapacity, string ammoTypeName = "")
-    {
+    public void ShowReloadUI(int currentAmmo, int magazineCapacity, string ammoTypeName = "") {
         if (!ready)
             return;
 
@@ -109,8 +91,7 @@ public class HUDController : MonoBehaviour
         UpdateReloadAmmo(currentAmmo, magazineCapacity);
     }
 
-    public void UpdateReloadAmmo(int currentAmmo, int magazineCapacity)
-    {
+    public void UpdateReloadAmmo(int currentAmmo, int magazineCapacity) {
         if (!ready)
             return;
 
@@ -123,8 +104,7 @@ public class HUDController : MonoBehaviour
 
         filledSegments = Mathf.Clamp(filledSegments, 0, magazineSegments);
 
-        for (int i = 0; i < ammoSegments.Count; i++)
-        {
+        for (int i = 0; i < ammoSegments.Count; i++) {
             if (i < filledSegments)
                 ammoSegments[i].RemoveFromClassList("empty");
             else
@@ -133,8 +113,7 @@ public class HUDController : MonoBehaviour
     }
 
     // Leaves the panel up for a moment after the reload, then hides it
-    public void HideReloadUIAfterDelay()
-    {
+    public void HideReloadUIAfterDelay() {
         if (!ready)
             return;
 
@@ -142,8 +121,7 @@ public class HUDController : MonoBehaviour
         Invoke(nameof(HideReloadUI), reloadDisplayDuration);
     }
 
-    public void HideReloadUI()
-    {
+    public void HideReloadUI() {
         if (!ready)
             return;
 
@@ -151,12 +129,8 @@ public class HUDController : MonoBehaviour
     }
 
 
-    // =================================
-    // GADGET DISPLAY
-    // =================================
-
-    public void BuildGadgetList(IReadOnlyList<Equippable> gadgets)
-    {
+    // Gadget Display
+    public void BuildGadgetList(IReadOnlyList<Equippable> gadgets) {
         if (!ready)
             return;
 
@@ -164,8 +138,7 @@ public class HUDController : MonoBehaviour
         gadgetSlots.Clear();
         gadgetCounts.Clear();
 
-        foreach (Equippable gadget in gadgets)
-        {
+        foreach (Equippable gadget in gadgets) {
             VisualElement slot = new VisualElement();
             slot.AddToClassList("gadget-slot");
 
@@ -192,8 +165,7 @@ public class HUDController : MonoBehaviour
     }
 
     // Call after a gadget is used so the "x 2" text updates
-    public void UpdateGadgetCounts(IReadOnlyList<Equippable> gadgets)
-    {
+    public void UpdateGadgetCounts(IReadOnlyList<Equippable> gadgets) {
         if (!ready)
             return;
 
@@ -201,8 +173,7 @@ public class HUDController : MonoBehaviour
             gadgetCounts[i].text = FormatCharges(gadgets[i].Charges);
     }
 
-    public void ShowGadgetSelection(int selectedIndex)
-    {
+    public void ShowGadgetSelection(int selectedIndex) {
         if (!ready)
             return;
 
@@ -213,10 +184,8 @@ public class HUDController : MonoBehaviour
         Invoke(nameof(HideGadgetUI), gadgetDisplayDuration);
     }
 
-    public void UpdateSelectedGadget(int selectedIndex)
-    {
-        for (int i = 0; i < gadgetSlots.Count; i++)
-        {
+    public void UpdateSelectedGadget(int selectedIndex) {
+        for (int i = 0; i < gadgetSlots.Count; i++) {
             if (i == selectedIndex)
                 gadgetSlots[i].AddToClassList("selected");
             else
@@ -224,21 +193,16 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    public void HideGadgetUI()
-    {
+    public void HideGadgetUI() {
         if (!ready)
             return;
 
         gadgetContainer.RemoveFromClassList("visible");
     }
 
-    // =================================
-    // BLIND (FLASHBANG) DISPLAY
-    // =================================
-
+    // Flashbang Display (Screen Flash Effect)
     // 0 = clear, 1 = fully white. Called every frame, so it skips unchanged values.
-    public void SetBlindAmount(float amount)
-    {
+    public void SetBlindAmount(float amount) {
         if (!ready || blindOverlay == null)
             return;
 
@@ -250,8 +214,7 @@ public class HUDController : MonoBehaviour
     }
 
     // Tools (hammer, ram) return -1 and show no count
-    private static string FormatCharges(int charges)
-    {
+    private static string FormatCharges(int charges) {
         return charges >= 0 ? $"× {charges}" : string.Empty;
     }
 }

@@ -22,15 +22,14 @@ public class WeaponManager : MonoBehaviour
     private Equippable _currentGadget;
     private readonly List<Equippable> _gadgets = new List<Equippable>();
     private int _gadgetIndex = -1;
+    private bool _gadgetInHand;
 
     public void Initialise() {
         _primary = Spawn(_primaryPrefab);
         _secondary = Spawn(_secondaryPrefab);
 
         foreach (Equippable prefab in _gadgetPrefabs) {
-            Equippable gadget = Spawn(prefab);
-            if (gadget != null)
-                _gadgets.Add(gadget);
+            _gadgets.Add(Spawn(prefab));
         }
 
         Equip(_primary);
@@ -41,26 +40,49 @@ public class WeaponManager : MonoBehaviour
             Current.UpdateItem(input, aim);
     }
 
-    public void SelectPrimary() => Equip(_primary);
-    public void SelectSecondary() => Equip(_secondary);
+    public void SelectPrimary() {
+        _gadgetInHand = false;
+        Equip(_primary);
+    }
+    public void SelectSecondary() {
+        _gadgetInHand = false;
+        Equip(_secondary);
+    }
     public void SelectGadget() {
-        if (_gadgets.Count == 0)
-            return;
+        if (_gadgets.Count == 0) return;
 
-        // Back to the last gadget used, or the first one if none has been used yet
-        if (_gadgetIndex < 0)
-            _gadgetIndex = 0;
+        int startIndex = Mathf.Max(0, _gadgetIndex);
+        int validIndex = FindNextValidGadget(startIndex);
 
-        Equip(_gadgets[_gadgetIndex]);
+        if (validIndex != -1) {
+            _gadgetIndex = validIndex;
+            _gadgetInHand = true;
+            Equip(_gadgets[_gadgetIndex]);
+        }
     }
 
-    public void CycleGadget()
-    {
-        if (_gadgets.Count == 0)
-            return;
+    public void CycleGadget() {
+        if (_gadgets.Count == 0) return;
 
-        _gadgetIndex = (_gadgetIndex + 1) % _gadgets.Count;
-        Equip(_gadgets[_gadgetIndex]);
+        int startIndex = (_gadgetIndex + 1) % _gadgets.Count;
+        int validIndex = FindNextValidGadget(startIndex);
+
+        if (validIndex != -1) {
+            _gadgetIndex = validIndex;
+            _gadgetInHand = true;
+            Equip(_gadgets[_gadgetIndex]);
+        }
+    }
+
+    private int FindNextValidGadget(int startIndex) {
+        for (int i = 0; i < _gadgets.Count; i++) {
+            int index = (startIndex + i) % _gadgets.Count;
+            Equippable gadget = _gadgets[index];
+
+            if (gadget != null && gadget.Charges > 0)
+                return index;
+        }
+        return -1;
     }
 
     // Every item is spawned once and hidden. Ammo and counts are kept when you switch.
