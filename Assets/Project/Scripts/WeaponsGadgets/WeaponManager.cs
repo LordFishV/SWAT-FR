@@ -19,70 +19,72 @@ public class WeaponManager : MonoBehaviour
 
     private Equippable _primary;
     private Equippable _secondary;
-    private Equippable _currentGadget;
     private readonly List<Equippable> _gadgets = new List<Equippable>();
     private int _gadgetIndex = -1;
-    private bool _gadgetInHand;
+    private int _validIndex;
 
     public void Initialise() {
         _primary = Spawn(_primaryPrefab);
         _secondary = Spawn(_secondaryPrefab);
 
         foreach (Equippable prefab in _gadgetPrefabs) {
-            _gadgets.Add(Spawn(prefab));
+            Equippable gadget = Spawn(prefab);
+            if (gadget != null)
+                _gadgets.Add(gadget);
         }
 
         Equip(_primary);
     }
 
     public void UpdateWeapons(PlayerInput input, Transform aim) {
-        if (Current != null)
-            Current.UpdateItem(input, aim);
+        if (Current == null)
+            return;
+
+        Current.UpdateItem(input, aim);
     }
 
     public void SelectPrimary() {
-        _gadgetInHand = false;
         Equip(_primary);
     }
     public void SelectSecondary() {
-        _gadgetInHand = false;
         Equip(_secondary);
     }
     public void SelectGadget() {
-        if (_gadgets.Count == 0) return;
+        if (_gadgets.Count == 0 || _validIndex == -1) return;
 
         int startIndex = Mathf.Max(0, _gadgetIndex);
         int validIndex = FindNextValidGadget(startIndex);
 
         if (validIndex != -1) {
-            _gadgetIndex = validIndex;
-            _gadgetInHand = true;
+            _gadgetIndex = _validIndex;
             Equip(_gadgets[_gadgetIndex]);
         }
     }
 
+    /// <summary>Cycle to next valid gadget</summary>
     public void CycleGadget() {
-        if (_gadgets.Count == 0) return;
+        int nextValidIndex = FindNextValidGadget(_gadgetIndex + 1);
+        if (nextValidIndex == -1)
+            return;
 
-        int startIndex = (_gadgetIndex + 1) % _gadgets.Count;
-        int validIndex = FindNextValidGadget(startIndex);
-
-        if (validIndex != -1) {
-            _gadgetIndex = validIndex;
-            _gadgetInHand = true;
-            Equip(_gadgets[_gadgetIndex]);
-        }
+        _gadgetIndex = nextValidIndex;
+        Equip(_gadgets[_gadgetIndex]);
     }
 
+    /// <summary>Find the next valid gadget </summary>
+    /// <param name="startIndex">The position to start at in the gadget list</param>
+    /// <returns>returns a valid index if there is one, if not then -1</returns>
     private int FindNextValidGadget(int startIndex) {
+        // To find the the next possable slot a minimum of 4 steps is needed.
         for (int i = 0; i < _gadgets.Count; i++) {
             int index = (startIndex + i) % _gadgets.Count;
             Equippable gadget = _gadgets[index];
 
-            if (gadget != null && gadget.Charges > 0)
+            // Early exit. If the gadget is usable then the player can access it
+            if (gadget != null && gadget.Charges != 0)
                 return index;
         }
-        return -1;
+        return -1; // if not set to -1 as there is no valid Index
     }
 
     // Every item is spawned once and hidden. Ammo and counts are kept when you switch.

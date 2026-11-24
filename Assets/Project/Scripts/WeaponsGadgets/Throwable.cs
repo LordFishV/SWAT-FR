@@ -5,7 +5,7 @@ using UnityEngine;
 public class Throwable : Equippable
 {
     [SerializeField] private GameObject _projectilePrefab;   // needs a Rigidbody and a Grenade script
-    [Tooltip("Start with atleast 1 so hammers can still be used.")]
+    [Tooltip("The amount to start with.")]
     [SerializeField] private int _count = 2;
     [SerializeField] private float _throwSpeed = 12f;
     [Tooltip("How far in front of the camera the grenade appears. Keep it larger than the player's capsule radius.")]

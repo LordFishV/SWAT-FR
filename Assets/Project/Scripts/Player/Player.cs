@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
             LookRotation = playerCamera.transform.rotation,
             Move = input.Move.ReadValue<Vector2>(),
             Look = input.Look.ReadValue<Vector2>(),
+            Interact = input.Interact.WasPressedThisFrame(),
             Run = ReadButton(input.Run),
             Crouch = ReadButton(input.Crouch),
 
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour
 
         playerCharacter.UpdateInput(playerInput);
         playerCharacter.UpdateBody(deltaTime);
+        playerCharacter.UpdateInteract(playerCamera);
 
         // Weapons run after the camera so shots use this frame's look direction
         if (input.EquipPrimary.WasPressedThisFrame())
